@@ -200,6 +200,8 @@ async function getTasksData() {
         responsible: responsibleText.join('; ') || 'No person assigned',
         plannedEnd: getPropertyValue(page.properties['Planned_End']) || 'No planned end date',
         status: page.properties.Status.status.name || "No Status Set",
+        importance: getPropertyValue(page.properties.Importance),
+        priority: getPropertyValue(page.properties.Priority)
       };
 
       return taskData

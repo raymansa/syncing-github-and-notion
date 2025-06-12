@@ -1,0 +1,312 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Status Report</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f0f2f5;
+      color: #333;
+    }
+    h1, h2 {
+      color: #172b4d;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #dfe1e6;
+    }
+    h2 {
+      margin-top: 40px;
+    }
+
+    /* New Kanban Table Styles */
+    .kanban-table {
+      width: 100%;
+      table-layout: fixed;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    .kanban-table th {
+      background-color: #f4f5f7;
+      font-weight: 600;
+      color: #42526e;
+      padding: 15px;
+      text-align: left;
+      border: 1px solid #dfe1e6;
+    }
+    .kanban-column {
+      vertical-align: top;
+      padding: 10px;
+      border: 1px solid #dfe1e6;
+    }
+    .kanban-column > .kanban-card {
+      margin-bottom: 15px;
+    }
+    .kanban-column > .kanban-card:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Card styles (retained) */
+    .kanban-card {
+      background-color: #ffffff;
+      border-radius: 5px;
+      padding: 15px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    }
+    .card-title {
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .card-detail {
+      font-size: 14px;
+      color: #5e6c84;
+      margin: 5px 0;
+    }
+    .card-detail strong {
+      color: #42526e;
+    }
+
+    /* Original Table Styles for Tasks */
+    .tasks-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+      background-color: #fff;
+    }
+    .tasks-table th, .tasks-table td {
+      border: 1px solid #ddd;
+      padding: 12px;
+      text-align: left;
+    }
+    .tasks-table th {
+      background-color: #f2f2f2;
+      color: #2c3e50;
+    }
+    .tasks-table tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    
+    @media print {
+      body {
+        margin: 0;
+        padding: 0;
+        size: A4 portrait;
+        background-color: #fff;
+      }
+      h1 {
+        page-break-after: avoid;
+      }
+      h2 {
+        page-break-before: always; /* Each section starts on a new page */
+        page-break-after: avoid;
+      }
+      h2:first-of-type {
+        page-break-before: auto; /* Avoid page break before the first h2 */
+      }
+      .kanban-table, .tasks-table {
+        page-break-inside: auto;
+      }
+      .kanban-card {
+        page-break-inside: avoid; /* Do not break a card across pages */
+        box-shadow: none;
+        border: 1px solid #ddd;
+      }
+      .title-page {
+        height: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="title-page">
+    <h1>Project Status Report</h1>
+    <p>Generated on: 2025/06/11, 16:37:59</p>
+  </div>
+  
+  <h2>Customers</h2>
+  <table class="kanban-table"><thead><tr><th>1. Initiation</th><th>2. Concept/Demo Presentation</th><th>4. Proposal Acceptance</th></tr></thead><tbody><tr><td class="kanban-column">
+    <div class="kanban-card">
+      <div class="card-title">Sandton Central Management District</div>
+      <p class="card-detail"><strong>Next Steps:</strong> N/A</p>
+      <p class="card-detail"><strong>Project Idea:</strong> Gaining information on the services industry from the customers perspective</p>
+    </div>
+  
+    <div class="kanban-card">
+      <div class="card-title">Stalion</div>
+      <p class="card-detail"><strong>Next Steps:</strong> N/A</p>
+      <p class="card-detail"><strong>Project Idea:</strong> Ask for contacts in the mining industry</p>
+    </div>
+  
+    <div class="kanban-card">
+      <div class="card-title">Baletsema Holdings</div>
+      <p class="card-detail"><strong>Next Steps:</strong> N/A</p>
+      <p class="card-detail"><strong>Project Idea:</strong> N/A</p>
+    </div>
+  </td><td class="kanban-column">
+    <div class="kanban-card">
+      <div class="card-title">Department of Agriculture, Land Reform and Rural Development</div>
+      <p class="card-detail"><strong>Next Steps:</strong> N/A</p>
+      <p class="card-detail"><strong>Project Idea:</strong> N/A</p>
+    </div>
+  
+    <div class="kanban-card">
+      <div class="card-title">Singamati Holdings</div>
+      <p class="card-detail"><strong>Next Steps:</strong> N/A</p>
+      <p class="card-detail"><strong>Project Idea:</strong> Assessing and processing water quantity and quality data</p>
+    </div>
+  
+    <div class="kanban-card">
+      <div class="card-title">Excellerate Services</div>
+      <p class="card-detail"><strong>Next Steps:</strong> N/A</p>
+      <p class="card-detail"><strong>Project Idea:</strong> Nueroflux will provide Excellerate Services with the performance management code but will keep the ownership and rights to the code. Excellerate Services will share its internal information with Nueroflux and provide introductions with the intention for Nueroflux to conduct a needs analysis at a mine. Nueroflux will create a 2 MVPs, one for Excellerate who will have the rights of first refusal, and one for the mine.</p>
+    </div>
+  </td><td class="kanban-column">
+    <div class="kanban-card">
+      <div class="card-title">Uwin Iwin</div>
+      <p class="card-detail"><strong>Next Steps:</strong> N/A</p>
+      <p class="card-detail"><strong>Project Idea:</strong> Understand their version of the best performance management system. Also understand what they are measuring and how. Collaborate with Uwin Iwin to provide customers with 3 solutions:  Incentives, Performance management, Digitizing</p>
+    </div>
+  </td></tr></tbody></table>
+
+  <h2>Stakeholders</h2>
+  <table class="kanban-table"><thead><tr><th>0. No engagement</th><th>1. Initiation Meeting</th><th>2. Defining the Relationship</th></tr></thead><tbody><tr><td class="kanban-column">
+    <div class="kanban-card">
+      <div class="card-title">Bamogale Security Solution</div>
+      <p class="card-detail"><strong>Purpose:</strong> Possibly sell AmaTrack source code. </p>
+      <p class="card-detail"><strong>Next Steps:</strong> N/A</p>
+    </div>
+  
+    <div class="kanban-card">
+      <div class="card-title">AerialWorks</div>
+      <p class="card-detail"><strong>Purpose:</strong> They do drones for the mines and work key companies like SSG to provide security and surveillance for mines. - They are willing to give us access to the mines so we can develop the R1 billion idea we before with Uwin Iwin Incentives</p>
+      <p class="card-detail"><strong>Next Steps:</strong> N/A</p>
+    </div>
+  
+    <div class="kanban-card">
+      <div class="card-title">Progroup</div>
+      <p class="card-detail"><strong>Purpose:</strong> They do control rooms for security companies.- They are willing to links us up with security companies so we can sell them AmaTrack source code. Maybe we can give them 20% commission per sale.</p>
+      <p class="card-detail"><strong>Next Steps:</strong> N/A</p>
+    </div>
+  
+    <div class="kanban-card">
+      <div class="card-title">Bloodhound</div>
+      <p class="card-detail"><strong>Purpose:</strong> Easy Roster Integrations</p>
+      <p class="card-detail"><strong>Next Steps:</strong> Send an email to bloodhound offering integration services</p>
+    </div>
+  
+    <div class="kanban-card">
+      <div class="card-title">iSecure Africa</div>
+      <p class="card-detail"><strong>Purpose:</strong> No purpose defined</p>
+      <p class="card-detail"><strong>Next Steps:</strong> Brent Saaimain will contact Joe to set up a meeting</p>
+    </div>
+  </td><td class="kanban-column">
+    <div class="kanban-card">
+      <div class="card-title">Muller</div>
+      <p class="card-detail"><strong>Purpose:</strong> Understand the challenges in the mining industry</p>
+      <p class="card-detail"><strong>Next Steps:</strong> N/A</p>
+    </div>
+  
+    <div class="kanban-card">
+      <div class="card-title">Lytehouse</div>
+      <p class="card-detail"><strong>Purpose:</strong> Explore the opportunity for an integrated product</p>
+      <p class="card-detail"><strong>Next Steps:</strong> Natalie to brainstorm messaging strategies for approaching end users; Natalie will arrange a meeting with CTO Jean to discuss Joseph and Jean's skill sets, explore potential collaboration opportunities, and identify areas for business development.</p>
+    </div>
+  </td><td class="kanban-column">
+    <div class="kanban-card">
+      <div class="card-title">IThegi</div>
+      <p class="card-detail"><strong>Purpose:</strong> Partner with Ithegi as a hardware provider</p>
+      <p class="card-detail"><strong>Next Steps:</strong> N/A</p>
+    </div>
+  </td></tr></tbody></table>
+
+  <h2>Projects</h2>
+  <table class="kanban-table"><thead><tr><th>0. Not Started</th><th>1. Initiation & Discovery</th></tr></thead><tbody><tr><td class="kanban-column">
+    <div class="kanban-card">
+      <div class="card-title">Singamati Water Algorithm</div>
+      <p class="card-detail"><strong>Customer:</strong> Singamati Holdings</p>
+      <p class="card-detail"><strong>Process Step:</strong> 01. Client Needs Analysis</p>
+      <p class="card-detail"><strong>Project Status:</strong> <span style="color: #660099;">Potential</span></p>
+    </div>
+  
+    <div class="kanban-card">
+      <div class="card-title">Services Industry Performance Management App</div>
+      <p class="card-detail"><strong>Customer:</strong> Excellerate Services</p>
+      <p class="card-detail"><strong>Process Step:</strong> 01. Client Needs Analysis</p>
+      <p class="card-detail"><strong>Project Status:</strong> <span style="color: #660099;">Potential</span></p>
+    </div>
+  
+    <div class="kanban-card">
+      <div class="card-title">Mining Performance Management App</div>
+      <p class="card-detail"><strong>Customer:</strong> No Company Contracted</p>
+      <p class="card-detail"><strong>Process Step:</strong> 01. Client Needs Analysis</p>
+      <p class="card-detail"><strong>Project Status:</strong> <span style="color: #660099;">Potential</span></p>
+    </div>
+  </td><td class="kanban-column">
+    <div class="kanban-card">
+      <div class="card-title">Kim’s writing application</div>
+      <p class="card-detail"><strong>Customer:</strong> No Company Contracted</p>
+      <p class="card-detail"><strong>Process Step:</strong> 01. Client Needs Analysis</p>
+      <p class="card-detail"><strong>Project Status:</strong> <span style="color: #585858;">Inactive</span></p>
+    </div>
+  
+    <div class="kanban-card">
+      <div class="card-title">RepatriaTrack</div>
+      <p class="card-detail"><strong>Customer:</strong> Department of Agriculture, Land Reform and Rural Development</p>
+      <p class="card-detail"><strong>Process Step:</strong> 01. Client Needs Analysis</p>
+      <p class="card-detail"><strong>Project Status:</strong> <span style="color: #680000;">Blocked</span></p>
+    </div>
+  </td></tr></tbody></table>
+
+  <h2>Tasks</h2>
+  <table class="tasks-table">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Entity</th>
+        <th>Responsible</th>
+        <th>Planned End</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+        <tr>
+          <td>Send email regarding selling AmaTrack source code</td>
+          <td>Progroup</td>
+          <td>No person assigned</td>
+          <td>No planned end date</td>
+          <td>Not started</td>
+        </tr>
+      
+        <tr>
+          <td>Set up a meeting Brent Saaiman for the week 16 June 2025</td>
+          <td>iSecure Africa</td>
+          <td>No person assigned</td>
+          <td>No planned end date</td>
+          <td>Not started</td>
+        </tr>
+      
+        <tr>
+          <td>Review Operational System 1st Draft</td>
+          <td>No Entity Name</td>
+          <td>Rendani</td>
+          <td>No planned end date</td>
+          <td>Not started</td>
+        </tr>
+      
+        <tr>
+          <td>Define the Business Model</td>
+          <td>No Entity Name</td>
+          <td>Rendani</td>
+          <td>No planned end date</td>
+          <td>Not started</td>
+        </tr>
+      
+    </tbody>
+  </table>
+</body>
+</html>
+  
