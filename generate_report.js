@@ -390,6 +390,13 @@ async function generateReport() {
     .tasks-table tr:nth-child(even) {
       background-color: #f9f9f9;
     }
+
+    .title-page {
+        height: 100%;
+        background: url(pictures/pexels-cottonbro-7441094.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+     }
     
     @media print {
       body {
@@ -416,12 +423,15 @@ async function generateReport() {
         box-shadow: none;
         border: 1px solid #ddd;
       }
+      
     }
   </style>
 </head>
 <body>
-  <h1>Project Status Report</h1>
-  <p>Generated on: ${new Date().toLocaleString('en-ZA', { timeZone: 'Africa/Johannesburg' })}</p>
+  <div class="title-page">
+    <h1>Project Status Report</h1>
+    <p>Generated on: ${new Date().toLocaleString('en-ZA', { timeZone: 'Africa/Johannesburg' })}</p>
+  </div>
   
   <h2>Customers</h2>
   ${generateStyledTableHtml(crmDataByPhase, crmCardGenerator)}
