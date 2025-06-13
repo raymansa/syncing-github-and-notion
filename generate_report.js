@@ -392,11 +392,17 @@ async function generateReport() {
     }
 
     .title-page {
-        height: 100%;
-        background: url(pictures/pexels-cottonbro-7441094.jpg);
+        height: 90vh;
+        background: url(pictures/project_planning1.jpg);
         background-repeat: no-repeat;
         background-size: cover;
-     }
+        padding: 2rem;
+    }
+
+    .title-page p {
+      color: #001728
+    }
+    
     
     @media print {
       body {
