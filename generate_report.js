@@ -2,6 +2,8 @@ import { Client } from '@notionhq/client';
 import dotenv from 'dotenv';
 import fs from 'fs';
 
+// TODO: Add Agile and Sprint reporting to the report 
+
 // Load environment variables
 dotenv.config();
 
