@@ -2,4 +2,4 @@
 
 ## Overview
 
-These are the scripts that will help to manage the projects 
+*These are the scripts that will help to manage the projects 
