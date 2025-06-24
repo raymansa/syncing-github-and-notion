@@ -1,0 +1,13 @@
+index.js
+addStaffMember.js
+.env
+getData/
+addStaffMembers.js
+projectLifecycleTracker.js
+node_modules/
+github_token.json
+.github_token
+directory_structure.txt
+0_planning/
+__pycache__/
+venv/
