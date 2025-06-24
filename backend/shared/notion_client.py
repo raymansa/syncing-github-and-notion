@@ -27,8 +27,8 @@ class NotionClient:
 
         # For this example, we'll use mock data.
         # Replace this with your actual data transformation logic.
-        mock_customers = [Customer(id="1", company_name="Excellerate", crm_phase="Concept")]
-        mock_projects = [Project(id="1", project_name="Synapse", status="Active", stage="Planning")]
+        mock_customers = [Customer(id="1", company_name="Excellerate", crm_phase="Concept", initial_project_idea="AI-driven insights")]
+        mock_projects = [Project(id="1", project_name="Synapse", status="Active", stage="Planning", description="AI-driven project management tool")]
         mock_tasks = [Task(id="1", title="Define Business Model", status="Not started", entity_name="Nueroflux")]
 
         return DashboardData(
