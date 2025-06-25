@@ -3,6 +3,7 @@ from flask import Flask, jsonify, request, abort
 from cachetools import TTLCache
 from dataclasses import asdict
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, JWTManager
+from flask_cors import CORS
 
 from shared.secrets import get_secret
 from shared.notion_client import NotionClient
@@ -10,6 +11,7 @@ from shared.firestore_client import FirestoreClient
 
 # --- Initialization ---
 app = Flask(__name__)
+CORS(app, origins=["http://localhost:3000", "http://127.0.0.1:3000"], supports_credentials=True)
 
 # Load secrets
 GCP_PROJECT_ID = os.getenv("GCP_PROJECT_ID")
@@ -83,6 +85,7 @@ def get_profile():
 @app.route("/v1/dashboard", methods=["GET"])
 @jwt_required() # Protect the dashboard endpoint
 def get_dashboard_data():
+    print("JWT identity:", get_jwt_identity())
     """Endpoint to get all data for the main dashboard."""
     cache_key = "dashboard_data"
     cached_data = cache.get(cache_key)

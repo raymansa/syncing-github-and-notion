@@ -18,3 +18,5 @@ steps:
       - '--platform=managed'
       - '--region=us-central1'
       - '--allow-unauthenticated' # Note: For now, we allow public access. We will secure this later.
+
+logging: CLOUD_LOGGING_ONLY
