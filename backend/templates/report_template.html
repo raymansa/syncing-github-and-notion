@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Weekly Status Report</title>
+    <style>
+        body { font-family: 'Inter', sans-serif; color: #212529; }
+        h1, h2, h3, h4 { margin: 0; padding: 0; }
+        h1 { font-size: 24px; text-align: center; margin-bottom: 8px; }
+        h2 { font-size: 20px; border-bottom: 2px solid #DEE2E6; padding-bottom: 8px; margin-top: 24px; margin-bottom: 16px; }
+        h3 { font-size: 18px; margin-top: 16px; }
+        p { color: #6C757D; }
+        .header p { text-align: center; margin: 0; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Neuroflux Weekly Status Report</h1>
+        <p>Generated on: {{ generation_date }}</p>
+    </div>
+
+    <h2>Project Status</h2>
+    {% for project in data.projects %}
+        <h3>{{ project.project_name }} (Status: {{ project.status }})</h3>
+        <p>Stage: {{ project.stage }}</p>
+    {% endfor %}
+
+    <h2>Customer Pipeline</h2>
+    {% for customer in data.customers %}
+        <h3>{{ customer.company_name }} (Phase: {{ customer.crm_phase }})</h3>
+        <p>Next Steps: {{ customer.next_step_summary or 'N/A' }}</p>
+    {% endfor %}
+    
+    <h2>Key Upcoming Tasks</h2>
+    <ul>
+    {% for task in data.tasks %}
+        {% if task.status != 'Done' %}
+        <li><strong>{{ task.title }}</strong> - Assigned to: {{ task.responsible_name or 'Unassigned' }}</li>
+        {% endif %}
+    {% endfor %}
+    </ul>
+</body>
+</html>
