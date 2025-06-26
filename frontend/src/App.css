@@ -15,6 +15,7 @@
   --status-danger: #DC3545;
   --status-info: #17A2B8;
   --status-todo: #6C757D;
+  --status-progress: 	#BF40BF;
 
   /* UI Elements */
   --spacing-unit: 4px;
@@ -99,7 +100,7 @@ header.app-header {
   background-color: var(--surface);
   z-index: 1000;
   padding: 16px 24px;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 3px solid var(--primary-brand);
 }
 .header-content {
   max-width: 1400px;
@@ -117,11 +118,13 @@ header.app-header {
   padding: 8px 12px;
   border-radius: var(--border-radius);
   transition: all 0.2s ease;
+  border: 1px solid var(--primary-brand)
 }
 .header-content nav a.active,
 .header-content nav a:hover {
-  color: var(--primary-brand);
-  background-color: #e9ecef;
+  color: #fff;
+  background-color: var(--primary-brand);
+  box-shadow: var(--shadow-hover);
 }
 .header-controls { display: flex; gap: 12px; }
 
@@ -157,6 +160,8 @@ h4 { font-weight: 500; font-size: 16px; }
 .status-warning { border-left-color: var(--status-warning); }
 .status-info { border-left-color: var(--status-info); }
 .status-danger { border-left-color: var(--status-danger); }
+.status-progress { border-left-color: var(--status-progress); }
+.status-success { border-left-color: var(--status-success); }
 
 /* Task Table */
 .filter-bar { display: flex; gap: 16px; margin-bottom: 16px; align-items: center; }
@@ -302,7 +307,7 @@ tbody tr:nth-child(even) { background-color: var(--background); }
 }
 
 .report-table th {
-  background: var(--surface);
+  background: #e2e2e2;
   color: var(--text-secondary);
   font-weight: 600;
 }

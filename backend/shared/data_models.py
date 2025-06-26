@@ -88,3 +88,4 @@ class QualityCharacteristic:
     name: str
     user_story: str
     feature_ids: List[str] = field(default_factory=list)
+    feature_names: List[str] = field(default_factory=list)  # <-- Add this line

@@ -5,6 +5,7 @@ from dataclasses import asdict
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, JWTManager
 from flask_cors import CORS
 from google.cloud import logging_v2
+from datetime import timedelta
 
 from shared.secrets import get_secret
 from shared.notion_client import NotionClient
@@ -20,6 +21,7 @@ NOTION_API_KEY = get_secret("NOTION_API_KEY", project_id=GCP_PROJECT_ID)
 INTERNAL_API_KEY = get_secret("INTERNAL_API_KEY", project_id=GCP_PROJECT_ID) # For inter-service auth if needed
 
 # Setup the Flask-JWT-Extended extension
+app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(minutes=15)
 app.config["JWT_SECRET_KEY"] = get_secret("JWT_SECRET_KEY", project_id=GCP_PROJECT_ID)
 jwt = JWTManager(app)
 

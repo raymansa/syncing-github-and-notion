@@ -1,22 +1,38 @@
 steps:
-  # 1. Build the container image
+  # 1. Build the frontend
+  - name: 'node:20'
+    dir: 'frontend'
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        npm ci
+        npm run build
+
+  # 2. Deploy frontend to Google Cloud Storage (as static site)
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        gsutil -m rsync -r -d build gs://YOUR_FRONTEND_BUCKET_NAME
+
+  # 3. Build the backend container image
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t', 'us-central1-docker.pkg.dev/neuroflux-synapse-prod/synapse-repo/synapse-api:latest', './backend']
 
-  # 2. Push the container image to Google Artifact Registry
+  # 4. Push the backend image
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'us-central1-docker.pkg.dev/neuroflux-synapse-prod/synapse-repo/synapse-api:latest']
 
-  # 3. Deploy container image to Cloud Run
+  # 5. Deploy backend to Cloud Run
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: gcloud
     args:
       - 'run'
       - 'deploy'
-      - 'synapse-api' # This will be the name of our Cloud Run service
+      - 'synapse-api'
       - '--image=us-central1-docker.pkg.dev/neuroflux-synapse-prod/synapse-repo/synapse-api:latest'
       - '--platform=managed'
       - '--region=us-central1'
-      - '--allow-unauthenticated' # Note: For now, we allow public access. We will secure this later.
-
-logging: CLOUD_LOGGING_ONLY
+      - '--allow-unauthenticated'
