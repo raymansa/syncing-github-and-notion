@@ -4,6 +4,7 @@ from cachetools import TTLCache
 from dataclasses import asdict
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, JWTManager
 from flask_cors import CORS
+from google.cloud import logging_v2
 
 from shared.secrets import get_secret
 from shared.notion_client import NotionClient
@@ -26,8 +27,10 @@ jwt = JWTManager(app)
 cache = TTLCache(maxsize=10, ttl=600)
 
 # Instantiate clients
-notion = NotionClient(api_key=NOTION_API_KEY)
+notion_db_id = get_secret("PROJECTS_DB_ID", project_id=GCP_PROJECT_ID)
+notion = NotionClient(api_key=get_secret("NOTION_API_KEY", project_id=GCP_PROJECT_ID), projects_db_id=notion_db_id)
 firestore = FirestoreClient()
+logging_client = logging_v2.Client()
 
 # --- Authentication Endpoints ---
 
@@ -98,6 +101,47 @@ def get_dashboard_data():
     cache[cache_key] = dashboard_data
 
     return jsonify(asdict(dashboard_data))
+
+@app.route("/v1/logs", methods=["GET"])
+@jwt_required()
+def get_logs():
+    """Fetches structured logs from Google Cloud Logging."""
+    limit = request.args.get('limit', 50, type=int)
+    
+    # Filter for logs created by our workers that have a jsonPayload
+    # In production, you might filter by a specific log name
+    log_filter = f'jsonPayload.service:"GitHub Sync Worker"'
+    
+    try:
+        entries = logging_client.list_log_entries(
+            resource_names=[f"projects/{GCP_PROJECT_ID}"],
+            filter_=log_filter,
+            order_by=logging_v2.DESCENDING,
+            page_size=limit
+        )
+        
+        logs_list = []
+        for entry in entries:
+            payload = entry.json_payload
+            logs_list.append({
+                "timestamp": payload.get("timestamp"),
+                "service": payload.get("service"),
+                "action": payload.get("action"),
+                "status": payload.get("status"),
+                "details": payload.get("details"),
+            })
+
+        return jsonify({
+            "logs": logs_list,
+            "pagination": {
+                "total": len(logs_list), # Simplified pagination for now
+                "limit": limit,
+                "offset": 0
+            }
+        })
+    except Exception as e:
+        print(f"Error fetching logs from GCP: {e}")
+        abort(500, description="Could not fetch logs.")
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
