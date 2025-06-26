@@ -20,7 +20,7 @@ const Dashboard = ({ activeView, onLogout, onNavigate, setFlashMessage }) => {
         const fetchData = async () => {
             try {
                 const dashboardData = await getDashboardData();
-                console.log("Dashboard data:", dashboardData); 
+
                 setData(dashboardData);
             } catch (err) {
                 setError(err.message);
@@ -64,7 +64,7 @@ const Dashboard = ({ activeView, onLogout, onNavigate, setFlashMessage }) => {
                     </nav>
                     <div className="header-controls">
                         <button className="btn btn-primary">Generate & Share PDF</button>
-                        <button className="btn btn-secondary" onClick={onLogout}>Logout</button>
+                        <button className="btn btn-secondary" onClick={() => onLogout("You have been logged out.")}>Logout</button>
                     </div>
                 </div>
             </header>

@@ -12,3 +12,5 @@ directory_structure.txt
 __pycache__/
 venv/
 old/
+*/credentials.json
+*/token.json

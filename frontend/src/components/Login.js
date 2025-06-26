@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { login } from '../services/apiService';
 
-const Login = ({ onLoginSuccess }) => {
+const Login = ({ onLoginSuccess, flashMessage }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -13,13 +13,8 @@ const Login = ({ onLoginSuccess }) => {
             const token = await login(email, password);
             onLoginSuccess(token);
         } catch (err) {
-            // If the error is a JSON parse error or contains HTML, show a friendly message
-            if (
-                err.message.includes("Unexpected token") ||
-                err.message.includes("not valid JSON") ||
-                err.message.includes("<!doctype")
-            ) {
-                setError("Your Login Details are incorrect");
+            if (err.message.includes("Unexpected token") || err.message.includes("not valid JSON")) {
+                setError("Your Login Details are incorrect.");
             } else {
                 setError(err.message || 'An unknown error occurred.');
             }
@@ -30,7 +25,10 @@ const Login = ({ onLoginSuccess }) => {
         <div className="login-container">
             <div className="login-card">
                 <h1>Nueroflux Project Admin</h1>
-                {error && <p className="error-message">{error}</p>}
+                {/* Display flash message from logout or API error */}
+                {flashMessage && <p className="error-message">{flashMessage}</p>}
+                {/* Display login-specific error */}
+                {error && !flashMessage && <p className="error-message">{error}</p>}
                 <form id="login-form" onSubmit={handleSubmit}>
                     <div className="form-group">
                         <label htmlFor="email">Email</label>
@@ -52,7 +50,7 @@ const Login = ({ onLoginSuccess }) => {
                             required
                         />
                     </div>
-                    <button type="submit" className="btn btn-primary">Login</button>
+                    <button type="submit" className="btn btn-primary full-width">Login</button>
                     <p className="forgot-password"><a href="#">Forgot Password?</a></p>
                 </form>
             </div>

@@ -57,3 +57,27 @@ export const getDashboardData = async () => {
 export const logout = () => {
     localStorage.removeItem('jwt_token');
 };
+
+/**
+ * Fetches activity logs from the backend.
+ * @returns {Promise<object>} The logs data and pagination info.
+ */
+export const getLogs = async () => {
+    const token = localStorage.getItem('jwt_token');
+    if (!token) {
+        throw new Error('No authentication token found.');
+    }
+
+    const response = await fetch(`${API_URL}/logs`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+        },
+    });
+
+    if (!response.ok) {
+        throw new Error('Failed to fetch logs.');
+    }
+
+    return response.json();
+};
