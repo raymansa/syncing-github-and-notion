@@ -13,7 +13,7 @@ def get_secret(secret_id: str, project_id: str = None) -> str:
     # Check for local environment variable first
     local_secret = os.getenv(secret_id)
     if local_secret:
-        print(f"Loaded secret '{secret_id} {local_secret[:6]}...{local_secret[-4:]}' from local .env file.")
+        print(f"Loaded secret '{secret_id}' from local .env file.")
         return local_secret
 
     if not project_id:

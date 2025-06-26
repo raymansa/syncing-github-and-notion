@@ -73,3 +73,18 @@ class DashboardData:
     stakeholders: List[Stakeholder] = field(default_factory=list)
     sync_logs: List[SyncLog] = field(default_factory=list)
     weekly_report: WeeklyReport = None
+
+@dataclass
+class Feature:
+    id: str
+    name: str
+    status: str
+    content: str 
+
+@dataclass
+class QualityCharacteristic:
+    """Represents a high-level requirement or user need."""
+    id: str
+    name: str
+    user_story: str
+    feature_ids: List[str] = field(default_factory=list)

@@ -1,9 +1,10 @@
 import requests
-from .data_models import DashboardData, Customer, Project, Task, Stakeholder, SyncLog, WeeklyReport
+from .data_models import DashboardData, Customer, Project, Task, Stakeholder, SyncLog, Feature, QualityCharacteristic
 
 class NotionClient:
-    def __init__(self, api_key: str):
+    def __init__(self, api_key: str, projects_db_id: str):
         self.api_key = api_key
+        self.projects_db_id = projects_db_id
         self.base_url = "https://api.notion.com/v1"
         self.headers = {
             "Authorization": f"Bearer {self.api_key}",
@@ -11,12 +12,57 @@ class NotionClient:
             "Notion-Version": "2022-06-28"
         }
 
-    def _query_database(self, db_id: str) -> dict:
+    def _query_database(self, db_id: str, filter_payload: dict = None) -> dict:
         """Helper to query a database."""
         url = f"{self.base_url}/databases/{db_id}/query"
-        response = requests.post(url, headers=self.headers)
-        response.raise_for_status() # Raise an exception for bad status codes
+        request_body = {"filter": filter_payload} if filter_payload else {}
+        response = requests.post(url, headers=self.headers, json=request_body if filter_payload else {})
+        response.raise_for_status()
         return response.json()
+    
+    def _get_page(self, page_id: str):
+        response = requests.get(f"{self.base_url}/pages/{page_id}", headers=self.headers)
+        response.raise_for_status()
+        return response.json()
+
+    def _get_page_content_as_markdown(self, page_id: str) -> str:
+        url = f"{self.base_url}/blocks/{page_id}/children"
+        response = requests.get(url, headers=self.headers)
+        blocks = response.json().get("results", [])
+        markdown_lines = []
+        for block in blocks:
+            block_type = block.get("type")
+            if block_type in block and block[block_type].get("rich_text"):
+                text = "".join(t.get("plain_text", "") for t in block[block_type]["rich_text"])
+                if block_type == "heading_1": markdown_lines.append(f"# {text}")
+                elif block_type == "heading_2": markdown_lines.append(f"## {text}")
+                elif block_type == "heading_3": markdown_lines.append(f"### {text}")
+                elif block_type == "bulleted_list_item": markdown_lines.append(f"* {text}")
+                elif block_type == "paragraph": markdown_lines.append(text)
+        return "\n\n".join(markdown_lines)
+
+    def get_active_projects(self) -> list:
+        print("Retrieving active projects from Notion...")
+        db_id = "YOUR_PROJECTS_DB_ID" # Replace with your actual DB ID from .env
+        filter_payload = {"property": "Project Status", "select": {"equals": "Active"}}
+        return self._query_database(self.projects_db_id, filter_payload).get("results", [])
+
+    def get_features_for_project(self, project_page: dict) -> list[Feature]:
+        print(f"Retrieving features for project: {project_page['properties']['Project Name']['title'][0]['plain_text']}...")
+        features = []
+        qc_relations = project_page['properties']['Quality Characteristic'].get('relation', [])
+        
+        for qc_ref in qc_relations:
+            qc_page = self._get_page(qc_ref['id'])
+            feature_relations = qc_page['properties']['Features'].get('relation', [])
+            for feature_ref in feature_relations:
+                feature_page = self._get_page(feature_ref['id'])
+                if feature_page['properties']['Feature Status']['select']['name'] == 'Active':
+                    title = feature_page['properties']['Feature']['title'][0]['plain_text']
+                    content = self._get_page_content_as_markdown(feature_page['id'])
+                    features.append(Feature(id=feature_page['id'], name=title, status='Active', content=content))
+        print(f"Found {len(features)} active features.")
+        return features
 
     def get_all_dashboard_data(self) -> DashboardData:
         """Fetches all data needed for the dashboard and transforms it."""
